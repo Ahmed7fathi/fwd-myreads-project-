@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 // books api
-//import * as BooksAPI from "./BooksAPI";
+import * as BooksAPI from "./BooksAPI";
 
 // router
 import { Link, Route } from "react-router-dom";
@@ -13,8 +13,28 @@ import Read from "./components/read";
 import Search from "./components/search";
 
 class BooksApp extends React.Component {
+  state = {
+    currently_reading: []
 
-  static app() {
+  };
+
+  get_currently = () => {
+    let data = BooksAPI.getAll();
+    data.then(books => {
+      this.setState(oldState => {
+        oldState.currently_reading = books.filter(book => {
+          return book.shelf === "currentlyReading";
+        });
+      });
+    })
+  };
+
+
+  componentDidMount() {
+    this.get_currently();
+  }
+
+  app() {
     return (
       <div className="app">
         <div className="list-books">
@@ -23,7 +43,7 @@ class BooksApp extends React.Component {
           </div>
           <div className="list-books-content">
             <div>
-              <CurrentRead/>
+              <CurrentRead books={this.state.currently_reading || null}/>
               <WantRead/>
               <Read/>
             </div>
@@ -41,7 +61,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div>
-        <Route exact path="/" render={() => (BooksApp.app())}/>
+        <Route exact path="/" render={() => (this.app())}/>
         <Route path="/search" component={Search}/>
       </div>
     );
