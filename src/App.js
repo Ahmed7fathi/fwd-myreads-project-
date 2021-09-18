@@ -16,8 +16,7 @@ class BooksApp extends React.Component {
   state = {
     currently_reading: [],
     want_to_read: [],
-    read: [],
-    nonUsedKey: 0
+    read: []
   };
 
   get_user_books = () => {
@@ -37,9 +36,6 @@ class BooksApp extends React.Component {
     });
   };
 
-  book_update = new_books => {
-    this.setState({ nonUsedKey: Date.now() } );
-  };
 
   componentDidMount() {
     this.get_user_books();
@@ -54,9 +50,9 @@ class BooksApp extends React.Component {
           </div>
           <div className="list-books-content">
             <div>
-              <CurrentRead books={this.state.currently_reading} book_update={this.book_update}/>
-              <WantRead books={this.state.want_to_read} book_update={this.book_update}/>
-              <Read books={this.state.read} book_update={this.book_update}/>
+              <CurrentRead books={this.state.currently_reading} move_book={this.get_user_books}/>
+              <WantRead books={this.state.want_to_read} move_book={this.get_user_books}/>
+              <Read books={this.state.read} move_book={this.get_user_books}/>
             </div>
           </div>
           <div className="open-search">

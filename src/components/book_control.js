@@ -7,8 +7,7 @@ class BookControl extends Component {
 
    book_update(event, book){
     BooksAPI.update(book, event.target.value).then(r => {
-      // todo: find a better approach to reload components
-      window.location.reload();
+      this.props.move_book();
     });
   };
 

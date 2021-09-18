@@ -22,7 +22,7 @@ class CurrentRead extends Component {
                                    style={{ backgroundImage: `url("${book.imageLinks.thumbnail}")` }}>
                               </div>
 
-                              <BookControl book={book} book_update={this.props.book_update}/>
+                              <BookControl book={book} move_book={this.props.move_book}/>
 
                             </div>
                             <div className="book-title">{book.title}</div>

@@ -8,7 +8,7 @@ class WantRead extends Component {
       <div className="bookshelf">
         <h2 className="bookshelf-title">Want To Read</h2>
         {
-          Array.isArray(this.props.books) && this.props.books.length > 0 ?  (
+          Array.isArray(this.props.books) && this.props.books.length > 0 ? (
             <div className="bookshelf-books">
               <ol className="books-grid">
                 {
@@ -22,7 +22,7 @@ class WantRead extends Component {
                                  style={{ backgroundImage: `url("${book.imageLinks.thumbnail}")` }}>
                             </div>
 
-                              <BookControl book={book} book_update={this.props.book_update}/>
+                            <BookControl book={book} move_book={this.props.move_book}/>
 
                           </div>
                           <div className="book-title">{book.title}</div>
