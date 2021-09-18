@@ -14,24 +14,35 @@ import Search from "./components/search";
 
 class BooksApp extends React.Component {
   state = {
-    currently_reading: []
-
+    currently_reading: [],
+    want_to_read: [],
+    read: [],
+    nonUsedKey: 0
   };
 
-  get_currently = () => {
+  get_user_books = () => {
     let data = BooksAPI.getAll();
     data.then(books => {
       this.setState(oldState => {
         oldState.currently_reading = books.filter(book => {
           return book.shelf === "currentlyReading";
         });
+        oldState.want_to_read = books.filter(book => {
+          return book.shelf === "wantToRead";
+        });
+        oldState.read = books.filter(book => {
+          return book.shelf === "read";
+        });
       });
-    })
+    });
   };
 
+  book_update = new_books => {
+    this.setState({ nonUsedKey: Date.now() } );
+  };
 
   componentDidMount() {
-    this.get_currently();
+    this.get_user_books();
   }
 
   app() {
@@ -43,9 +54,9 @@ class BooksApp extends React.Component {
           </div>
           <div className="list-books-content">
             <div>
-              <CurrentRead books={this.state.currently_reading || null}/>
-              <WantRead/>
-              <Read/>
+              <CurrentRead books={this.state.currently_reading} book_update={this.book_update}/>
+              <WantRead books={this.state.want_to_read} book_update={this.book_update}/>
+              <Read books={this.state.read} book_update={this.book_update}/>
             </div>
           </div>
           <div className="open-search">
