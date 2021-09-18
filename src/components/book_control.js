@@ -17,6 +17,7 @@ class BookControl extends Component {
       <div className="book-shelf-changer">
         <select onChange={(e) => {this.book_update(e, this.props.book)}}>
           <option value="move" disabled>Move to...</option>
+          <option value="default" style={{'display': 'none'}}>0</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>
           <option value="read">Read</option>
