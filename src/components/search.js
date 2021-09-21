@@ -22,6 +22,7 @@ class Search extends Component {
   // search function using debounce
   search_deb = debounce(query => {
     if (query.length > 0) {
+      this.toggle_loading();
       SearchApi(query, 10).then((results) => {
         this.setState({
           query: query,
@@ -37,7 +38,6 @@ class Search extends Component {
   }, 600);
 
   search = event => {
-    this.toggle_loading();
     let query = event.target.value;
     this.search_deb(query);
   };
