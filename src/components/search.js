@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { debounce } from "lodash";
 import { Link } from "react-router-dom";
 import { search as SearchApi } from "../BooksAPI";
 import BookControl from "./book_control";
@@ -18,10 +19,9 @@ class Search extends Component {
   };
 
 
-  search = event => {
-    this.toggle_loading();
-    let query = event.target.value;
-
+  // search function using debounce
+  search_deb = debounce(query => {
+    console.log("search runs ", query);
     if (query.length > 0) {
       SearchApi(query, 10).then((results) => {
         this.setState({
@@ -35,6 +35,12 @@ class Search extends Component {
         loading: false
       });
     }
+  }, 600);
+
+  search = event => {
+    this.toggle_loading();
+    let query = event.target.value;
+    this.search_deb(query);
   };
 
 
