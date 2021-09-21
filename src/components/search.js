@@ -32,9 +32,7 @@ class Search extends Component {
             loading: !this.state.loading
           });
         } else {
-          console.log("results ", results);
-          const filteredItems = results.filter(book => book.imageLinks && book.imageLinks.thumbnail);
-          console.log("filteredItems", filteredItems);
+          const filteredItems = results.filter(book => Array.isArray(book.authors) && book.imageLinks && book.imageLinks.thumbnail);
           this.setState({
             query: query,
             results: filteredItems,
@@ -97,7 +95,6 @@ class Search extends Component {
                               </div>
                               <div className="book-title">{book.title}</div>
                               <div className="book-authors">{
-                                book.author &&
                                 book.authors.map((auth, index) => {
                                   return (index < 1 ? auth : ` - ${auth}`);
                                 })
