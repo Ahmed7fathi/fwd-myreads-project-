@@ -24,11 +24,23 @@ class Search extends Component {
     if (query.length > 0) {
       this.toggle_loading();
       SearchApi(query, 10).then((results) => {
-        this.setState({
-          query: query,
-          results: results,
-          loading: !this.state.loading
-        });
+        // api should return 404 in normal case so ..
+        if (results.error) {
+          this.setState({
+            query: query,
+            results: results,
+            loading: !this.state.loading
+          });
+        } else {
+          console.log("results ", results);
+          const filteredItems = results.filter(book => book.imageLinks && book.imageLinks.thumbnail);
+          console.log("filteredItems", filteredItems);
+          this.setState({
+            query: query,
+            results: filteredItems,
+            loading: !this.state.loading
+          });
+        }
       });
     } else {
       this.setState({
