@@ -21,7 +21,6 @@ class Search extends Component {
 
   // search function using debounce
   search_deb = debounce(query => {
-    console.log("search runs ", query);
     if (query.length > 0) {
       SearchApi(query, 10).then((results) => {
         this.setState({
