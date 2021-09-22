@@ -69,7 +69,12 @@ class BooksApp extends React.Component {
     return (
       <div>
         <Route exact path="/" render={() => (this.app())}/>
-        <Route path="/search" component={Search}/>
+
+        /* pass props to route */
+        <Route path='/search'>
+          <Search user_books={this.state} move_book={this.get_user_books}/>
+        </Route>
+
       </div>
     );
   }

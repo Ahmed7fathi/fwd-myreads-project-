@@ -90,7 +90,8 @@ class Search extends Component {
                                      style={{ backgroundImage: `url("${book.imageLinks.thumbnail}")` }}>
                                 </div>
 
-                                <BookControl book={book} move_book={results.move_book}/>
+                                <BookControl book={book} move_book={this.props.move_book}
+                                             user_books={this.props.user_books}/>
 
                               </div>
                               <div className="book-title">{book.title}</div>
@@ -110,7 +111,6 @@ class Search extends Component {
               :
               (results.error && query.length >= 0 && !loading ? <h3>No Results</h3> : "")
           }
-          <ol className="books-grid"></ol>
         </div>
       </div>);
   }
