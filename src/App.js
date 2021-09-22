@@ -7,9 +7,7 @@ import * as BooksAPI from "./BooksAPI";
 import { Link, Route } from "react-router-dom";
 
 // components
-import CurrentRead from "./components/current_read";
-import WantRead from "./components/want_read";
-import Read from "./components/read";
+import Shelf from "./components/shelf";
 import Search from "./components/search";
 
 class BooksApp extends React.Component {
@@ -50,9 +48,17 @@ class BooksApp extends React.Component {
           </div>
           <div className="list-books-content">
             <div>
-              <CurrentRead books={this.state.currently_reading} move_book={this.get_user_books}/>
-              <WantRead books={this.state.want_to_read} move_book={this.get_user_books}/>
-              <Read books={this.state.read} move_book={this.get_user_books}/>
+              <Shelf shelf_name={"Currently Reading"}
+                     books={this.state.currently_reading}
+                     move_to_shelf={this.get_user_books}/>
+
+              <Shelf shelf_name={"Want To Read"}
+                     books={this.state.want_to_read}
+                     move_to_shelf={this.get_user_books}/>
+
+              <Shelf shelf_name={"Read"}
+                     books={this.state.read}
+                     move_to_shelf={this.get_user_books}/>
             </div>
           </div>
           <div className="open-search">
@@ -70,9 +76,9 @@ class BooksApp extends React.Component {
       <div>
         <Route exact path="/" render={() => (this.app())}/>
 
-        /* pass props to route */
+        {/*pass props to route */}
         <Route path='/search'>
-          <Search user_books={this.state} move_book={this.get_user_books}/>
+          <Search user_books={this.state} move_to_shelf={this.get_user_books}/>
         </Route>
 
       </div>

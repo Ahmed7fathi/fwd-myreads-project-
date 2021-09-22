@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import BookControl from "./book_control";
+import PropTypes from 'prop-types';
 
 
-class WantRead extends Component {
+class Shelf extends Component {
   render() {
+    const {shelf_name, books, move_to_shelf} = this.props;
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">Want To Read</h2>
+        <h2 className="bookshelf-title">{shelf_name}</h2>
         {
-          Array.isArray(this.props.books) && this.props.books.length > 0 ? (
+          Array.isArray(books) && books.length > 0 ? (
             <div className="bookshelf-books">
               <ol className="books-grid">
                 {
-                  this.props.books.map(book => {
+                  books.map(book => {
                     return (
                       <li key={book.id}>
                         <div className="book">
@@ -22,7 +24,7 @@ class WantRead extends Component {
                                  style={{ backgroundImage: `url("${book.imageLinks.thumbnail}")` }}>
                             </div>
 
-                            <BookControl book={book} move_book={this.props.move_book}/>
+                            <BookControl book={book} move_to_shelf={move_to_shelf}/>
 
                           </div>
                           <div className="book-title">{book.title}</div>
@@ -38,8 +40,7 @@ class WantRead extends Component {
                 }
               </ol>
             </div>
-          ) : (<h3> Not planning to read any books at this time</h3>)
-
+          ) : (<h3> Shelf is Empty </h3>)
         }
 
       </div>
@@ -48,5 +49,11 @@ class WantRead extends Component {
   }
 }
 
+Shelf.propTypes = {
+  shelf_name: PropTypes.string,
+  books: PropTypes.array,
+  move_to_shelf: PropTypes.func,
+};
 
-export default WantRead;
+
+export default Shelf;

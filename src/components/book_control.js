@@ -13,7 +13,7 @@ class BookControl extends Component {
 
   book_update(event, book) {
     BooksAPI.update(book, event.target.value).then(() => {
-      this.props.move_book();
+      this.props.move_to_shelf();
     });
   };
 
