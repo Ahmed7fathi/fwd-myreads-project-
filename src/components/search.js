@@ -42,6 +42,7 @@ class Search extends Component {
       });
     } else {
       this.setState({
+        results: [],
         loading: false
       });
     }
